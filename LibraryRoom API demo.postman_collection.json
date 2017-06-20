@@ -1,0 +1,287 @@
+{
+  "variables": [],
+  "info": {
+    "name": "LibraryRoom API demo",
+    "_postman_id": "814a7e2e-b28c-601b-f731-23eb34f561d9",
+    "description": "Tests basic GET scenarios with exception handling for all resources + POST, PUT, PATCH, DELETE",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET Rooms",
+      "request": {
+        "url": "http://localhost:1028/api/rooms",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "GET Room by id",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "GET Room with all Items ",
+      "request": {
+        "url": {
+          "raw": "http://localhost:1028/api/rooms/1?includeItemsOfInterest=true",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1028",
+          "path": [
+            "api",
+            "rooms",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "includeItemsOfInterest",
+              "value": "true",
+              "equals": true,
+              "description": ""
+            }
+          ],
+          "variable": []
+        },
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "GET only Items for a Room",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1/itemsofinterest",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "GET Items for a non existent room  ( should break )",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/5/itemsofinterest",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": "404 not found expected"
+      },
+      "response": []
+    },
+    {
+      "name": "GET an Item for a Room",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1/itemsofinterest/2",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "GET Item that doesn't exist ( should break)",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1/itemsofinterest/99",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": "should return 404 not found"
+      },
+      "response": []
+    },
+    {
+      "name": "POST new Item to existing Room",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/3/itemsofinterest",
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Newly added item of interest\",\n    \"description\": \"This is a description\"\n}"
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "view results of POST",
+      "request": {
+        "url": {
+          "raw": "http://localhost:1028/api/rooms/3?includeItemsOfInterest=true",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1028",
+          "path": [
+            "api",
+            "rooms",
+            "3"
+          ],
+          "query": [
+            {
+              "key": "includeItemsOfInterest",
+              "value": "true",
+              "equals": true,
+              "description": ""
+            }
+          ],
+          "variable": []
+        },
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "PUT existing Item",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1/itemsofinterest/2",
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Updated - Whiteboard\",\n    \"description\": \"Updated - Perhaps we lost the whiteboard?.\"\n}"
+        },
+        "description": "204 no content expected"
+      },
+      "response": []
+    },
+    {
+      "name": "view result of PUT",
+      "request": {
+        "url": {
+          "raw": "http://localhost:1028/api/rooms/1?includeItemsOfInterest=true",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1028",
+          "path": [
+            "api",
+            "rooms",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "includeItemsOfInterest",
+              "value": "true",
+              "equals": true,
+              "description": ""
+            }
+          ],
+          "variable": []
+        },
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH bulk update of an Item",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1/itemsofinterest/1",
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "description": ""
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n    {\n      \"op\": \"replace\",\n      \"path\": \"/name\",\n      \"value\": \"PATCHed this name - Central Park\"\n    },\n    {\n      \"op\": \"replace\",\n      \"path\": \"/description\",\n      \"value\": \"PATCHed a description in the same request - Description222\"\n    }\n]"
+        },
+        "description": "204 No context expected on success"
+      },
+      "response": []
+    },
+    {
+      "name": "view result of PATCH",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1/itemsofinterest/1",
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Item",
+      "request": {
+        "url": "http://localhost:1028/api/rooms/1/itemsofinterest/2",
+        "method": "DELETE",
+        "header": [],
+        "body": {},
+        "description": "204 No Content expected"
+      },
+      "response": []
+    },
+    {
+      "name": "view results of DELETE",
+      "request": {
+        "url": {
+          "raw": "http://localhost:1028/api/rooms/1?IncludeItemsOfInterest=true",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "1028",
+          "path": [
+            "api",
+            "rooms",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "IncludeItemsOfInterest",
+              "value": "true",
+              "equals": true,
+              "description": ""
+            }
+          ],
+          "variable": []
+        },
+        "method": "GET",
+        "header": [],
+        "body": {},
+        "description": ""
+      },
+      "response": []
+    }
+  ]
+}
